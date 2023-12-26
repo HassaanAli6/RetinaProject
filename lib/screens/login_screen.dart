@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(width: 4.0),
                 InkWell(
-                  onTap: ()=> Get.to(()=> SignUpScreen()),
+                  onTap: ()=> Get.to(()=> SignUpType()),
                   child: Text(
                     'Sign Up',
                     style: TextStyle(

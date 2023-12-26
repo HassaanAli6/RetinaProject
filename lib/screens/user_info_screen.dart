@@ -9,12 +9,12 @@ import 'package:get/get.dart';
 
 import '../controllers/user_profile_controller.dart';
 
-class GetUserInfoScreen extends StatefulWidget {
+class RegularUserInfoScreen extends StatefulWidget {
   @override
-  State<GetUserInfoScreen> createState() => _GetUserInfoScreenState();
+  State<RegularUserInfoScreen> createState() => _RegularUserInfoScreenState();
 }
 
-class _GetUserInfoScreenState extends State<GetUserInfoScreen> {
+class _RegularUserInfoScreenState extends State<RegularUserInfoScreen> {
 
 
   final TextEditingController firstNameController = TextEditingController();

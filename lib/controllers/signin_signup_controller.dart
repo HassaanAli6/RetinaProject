@@ -48,7 +48,7 @@ class SigninSignupController extends GetxController{
       if(!userCredential.isNull){
 
         Get.back();
-        _auth.currentUser!.emailVerified? GetUserInfoScreen():
+        _auth.currentUser!.emailVerified? RegularUserInfoScreen():
         Get.to(()=> EmailVerificationScreen());
       }
 

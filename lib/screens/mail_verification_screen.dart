@@ -42,7 +42,7 @@ class EmailVerificationScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: (){
               if(_auth.currentUser!.emailVerified){
-                Get.offAll(()=> GetUserInfoScreen());
+                Get.offAll(()=> RegularUserInfoScreen());
               }else{
                 Get.snackbar("Error", "Your email has not been verified", backgroundColor: Colors.white);
               }

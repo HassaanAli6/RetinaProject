@@ -116,7 +116,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
                         // Sign the user in (or link) with the credential
                         UserCredential user= await auth.signInWithCredential(credential).whenComplete(() =>
-                          Get.to(()=> GetUserInfoScreen()));
+                          Get.to(()=> RegularUserInfoScreen()));
                         print(user.credential);
                       }catch(e){
                         Get.snackbar(
