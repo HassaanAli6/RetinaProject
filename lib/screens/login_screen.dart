@@ -1,3 +1,4 @@
+import 'package:dr_detection/screens/Signuptype.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/signin_signup_controller.dart';
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(width: 4.0),
                 InkWell(
-                  onTap: ()=> Get.to(()=> SignUpType()),
+                  onTap: ()=> Get.to(()=> SignUptype()),
                   child: Text(
                     'Sign Up',
                     style: TextStyle(

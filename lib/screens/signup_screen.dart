@@ -5,15 +5,23 @@ import 'package:get/get.dart';
 import '../widgets/text_field.dart';
 import 'user_info_screen.dart';
 
-class SignUpType extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
+
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  final controller = Get.put(SigninSignupController());
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign Up'),
-      ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
@@ -23,66 +31,67 @@ class SignUpType extends StatelessWidget {
               // You can add more properties to customize the image display
             ),
             Text(
-              'Select Account Type:',
-              style: TextStyle(fontSize: 20.0),
+              'Sign Up',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.grey[800],
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to doctor signup page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DoctorInfoScreen()),
-                );
-              },
-              child: Text('Sign Up as Doctor'),
+            SizedBox(height: 16.0),
+            buildTextField(
+              hintText: "Enter your email",
+              controller: emailController,
+              keyboardType: TextInputType.text,
             ),
-            SizedBox(height: 10.0),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to regular user signup page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegularUserInfoScreen()),
-                );
-              },
-              child: Text('Sign Up as User'),
+            SizedBox(height: 16.0),
+            buildTextField(
+              hintText: "Enter password",
+              controller: passwordController,
+              keyboardType: TextInputType.text,
+              isPassword: true,
+            ),
+            SizedBox(height: 16.0),
+            buildTextField(
+              hintText: "Confirm password",
+              controller: confirmPasswordController,
+              keyboardType: TextInputType.text,
+              isPassword: true,
+            ),
+            SizedBox(height: 16.0),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: ()async{
+
+                  if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty && confirmPasswordController.text.isNotEmpty){
+                    if(passwordController.text == confirmPasswordController.text){
+                      showProgressDialog(context, 'Signing up');
+                      await controller.signupUserWithEmailAndPassword(
+                          emailController.text,
+                          passwordController.text, confirmPasswordController.text
+                      );
+                    }else{
+                      Get.snackbar('Error', 'Password does not match', backgroundColor: Colors.white);
+                    }
+                  }else{
+                    Get.snackbar('Empty fields', 'Please enter all fields', backgroundColor: Colors.white);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: Text(
+                  'Sign up',
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ),
+              ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class DoctorInfoScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Doctor Sign Up'),
-      ),
-      body: Center(
-        child: Text(
-          'Doctor Sign Up Page',
-          style: TextStyle(fontSize: 24.0),
-        ),
-      ),
-    );
-  }
-}
-
-class RegularUserInfoScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('User Sign Up'),
-      ),
-      body: Center(
-        child: Text(
-          'User Sign Up Page',
-          style: TextStyle(fontSize: 24.0),
         ),
       ),
     );
